@@ -1494,3 +1494,193 @@ select.input-filter {
   border-top-left-radius: 12px;  /* 5. Ikut sudut kartu yang melengkung (opsional) */
   border-top-right-radius: 12px; /* 6. Ikut sudut kartu yang melengkung (opsional) */
 }
+
+/* =========================================
+   === GOR WIJAYA CUSTOMER INTERFACE ===
+   ========================================= */
+
+.user-container {
+  padding-bottom: 120px; /* Jarak agar konten bawah tidak tertutup tombol WA */
+}
+
+/* =========================================
+   === TEMA TERANG (MERAH & NAVY) CUSTOMER ===
+   ========================================= */
+
+:root {
+  --primary-navy: #242c63; /* Warna Logo Biru */
+  --primary-red: #a32129;  /* Warna Logo Merah */
+  --bg-light: #f4f6f9;     /* Background Utama Abu-abu sangat muda */
+  --card-bg: #ffffff;      /* Background Kotak Putih */
+  --text-dark: #1f2937;    /* Warna Teks Gelap */
+  --text-muted: #6b7280;   /* Warna Teks Abu-abu */
+}
+
+/* Background Utama Aplikasi */
+.app-container {
+  background-color: var(--bg-light) !important;
+  color: var(--text-dark) !important;
+  min-height: 100vh;
+}
+
+/* --- HEADER CUSTOMER --- */
+.customer-header {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-bottom: 2px solid #e5e7eb !important;
+  box-shadow: 0 4px 15px rgba(36, 44, 99, 0.08) !important;
+}
+
+.hamburger-btn {
+  color: var(--primary-navy) !important;
+}
+
+.hamburger-btn:hover {
+  color: var(--primary-red) !important;
+}
+
+/* Ukuran Foto Logo di Header */
+.header-logo-img {
+  height: 45px; /* Sesuaikan kalau kebesaran/kekecilan */
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* --- TULISAN WELCOME & BANNER --- */
+.header h1 {
+  color: var(--primary-navy) !important;
+}
+.header p {
+  color: var(--text-muted) !important;
+}
+
+/* --- FORM PEMESANAN --- */
+.booking-form {
+  background: var(--card-bg) !important;
+  border: 1px solid #e5e7eb !important;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05) !important;
+}
+.booking-form h3 {
+  color: var(--primary-navy) !important;
+}
+.booking-form input {
+  background: #f9fafb !important;
+  border: 1px solid #d1d5db !important;
+  color: var(--text-dark) !important;
+}
+.booking-form input:focus {
+  border-color: var(--primary-navy) !important;
+  outline: none;
+}
+
+/* --- CARD LAPANGAN & INFO --- */
+.lapangan-card, .info-card {
+  background: var(--card-bg) !important;
+  border: 1px solid #e5e7eb !important;
+  box-shadow: 0 8px 20px rgba(36, 44, 99, 0.06) !important;
+}
+.card-content h2, .info-card h3, .info-title {
+  color: var(--primary-navy) !important;
+}
+.info-lapangan p, .info-card p, .info-card li, .info-card-description {
+  color: var(--text-muted) !important;
+}
+.harga {
+  color: var(--primary-red) !important;
+}
+
+/* JURUS SAKTI OVERRIDE INLINE STYLE GELAP BAWAAN REACT */
+.lapangan-card div[style*="#2a2a2a"] {
+  background-color: #f3f4f6 !important;
+  border-left-color: var(--primary-navy) !important;
+  color: var(--primary-navy) !important;
+}
+.lapangan-card div[style*="#2a2a2a"] strong {
+  color: var(--primary-red) !important;
+}
+.rincian-harga {
+  background-color: #f8f9fa !important;
+  border-color: #d1d5db !important;
+}
+.rincian-harga span, .rincian-harga strong {
+  color: var(--primary-navy) !important;
+}
+
+/* --- TOMBOL-TOMBOL --- */
+.btn-slot {
+  border: 1px solid var(--primary-navy) !important;
+  color: var(--primary-navy) !important;
+  background: transparent !important;
+}
+.btn-slot.aktif {
+  background: var(--primary-navy) !important;
+  color: #fff !important;
+}
+.btn-slot.penuh {
+  background: #e5e7eb !important;
+  border-color: #d1d5db !important;
+  color: #9ca3af !important;
+}
+
+.btn-durasi {
+  border: 1px solid var(--primary-navy) !important;
+  color: var(--primary-navy) !important;
+}
+.btn-durasi.aktif {
+  background: var(--primary-navy) !important;
+  color: #fff !important;
+}
+
+.btn-pilih {
+  background: var(--primary-red) !important;
+  color: #fff !important;
+}
+.btn-pilih:hover {
+  background: #811920 !important;
+}
+
+.opsi-label {
+  border: 1px solid #d1d5db !important;
+  color: var(--text-dark) !important;
+}
+.opsi-label.aktif {
+  border-color: var(--primary-red) !important;
+  background: rgba(163, 33, 41, 0.05) !important;
+  color: var(--primary-red) !important;
+}
+
+/* --- SIDEBAR LACI --- */
+.gor-wijaya-customer-menu-drawer {
+  background: #ffffff !important;
+}
+.drawer-header {
+  border-bottom: 1px solid #e5e7eb !important;
+}
+.drawer-close-btn {
+  color: var(--primary-navy) !important;
+}
+.customer-drawer-menu-item {
+  color: var(--primary-navy) !important;
+  border-bottom: 1px solid #f3f4f6 !important;
+}
+.customer-drawer-menu-item i {
+  color: var(--primary-red) !important;
+}
+.customer-drawer-menu-item:hover {
+  background: #f8f9fa !important;
+  color: var(--primary-red) !important;
+  padding-left: 35px !important;
+}
+
+/* --- FOOTER --- */
+.customer-footer {
+  background: var(--primary-navy) !important;
+  border-top: 4px solid var(--primary-red) !important;
+  color: #e5e7eb !important;
+}
+.customer-footer p { color: #d1d5db !important; }
+.footer-address { color: #9ca3af !important; }
+
+/* WARNA HIGHLIGHT INFO HALAMAN */
+.text-info-highlight { color: var(--primary-red) !important; }
+.info-card-img { border: 1px solid #e5e7eb !important; }

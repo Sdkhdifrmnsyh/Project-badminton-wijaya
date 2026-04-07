@@ -76,3 +76,5 @@ Route::put('/promos/{id}', [PromoController::class, 'update']);
 Route::delete('/promos/{id}', [PromoController::class, 'destroy']);
 
 Route::delete('/booking/batal-bayar/{id}', [\App\Http\Controllers\BookingController::class, 'hapusBatalBayar']);
+
+Route::post('/admin/booking/manual', [BookingController::class, 'storeManualAdmin']);

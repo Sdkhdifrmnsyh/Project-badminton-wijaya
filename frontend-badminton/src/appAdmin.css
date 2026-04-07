@@ -1,0 +1,966 @@
+/* ==========================================================================
+   SISTEM TEMA (DARK/LIGHT MODE) - MASTER LEVEL 5 (ANTI BELANG)
+   ========================================================================== */
+
+/* ☀️ TEMA TERANG (LIGHT MODE - DEFAULT) */
+:root {
+  --bg-main: #f4f7fb;       /* Abu-abu sangat tipis untuk background luar */
+  --bg-sidebar: #ffffff;    /* Sidebar putih bersih */
+  --bg-card: #ffffff;       /* Putih bersih untuk kartu */
+  --bg-input: #ffffff;      /* Putih bersih untuk kotak input */
+  --bg-hover: #eef2f6;      /* Hover abu halus */
+
+  --text-primary: #1e293b;  /* Teks utama gelap tegas (Navy) */
+  --text-secondary: #64748b;/* Teks penjelasan abu-abu */
+
+  --border-color: #cbd5e1;  /* Garis batas terang elegan */
+  --border-input: #cbd5e1;
+
+  /* AKSEN WIJAYA BRANDING */
+  --wijaya-blue: #242d66;   /* Biru Wijaya */
+  --wijaya-red: #a32129;    /* Merah Wijaya */
+  --color-success: #10b981; /* Hijau Sukses (Classic) */
+  
+  /* 👇 JURUS ANTI GAIB TEKS STATUS (MODE TERANG) 👇 */
+  --text-status: #1e293b;    /* Teks status ikut Navy (sama kayak primary) */
+}
+
+body.dark-mode {
+  /* 🌙 TEMA GELAP (DARK MODE OVERRIDE) */
+  --bg-main: #0b0f19;       /* Biru sangat gelap elegan */
+  --bg-sidebar: #131a2a;    /* Sidebar navy gelap */
+  --bg-card: #131a2a;       /* Kartu navy gelap */
+  --bg-input: #1e293b;      /* Input navy medium */
+  --bg-hover: #1e293b;
+
+  --text-primary: #f8fafc;  /* Teks utama putih terang */
+  --text-secondary: #94a3b8;/* Teks abu-abu terang */
+
+  --border-color: #334155;  /* Garis batas gelap */
+  
+  /* 👇 JURUS ANTI GAIB TEKS STATUS (MODE GELAP) 👇 */
+  --text-status: #ffffff;    /* Teks status dipaksa PUTIH TOTAL */
+}
+
+/* Transisi Halus Global Saat Ganti Tema */
+body { transition: background-color 0.3s ease, color 0.3s ease !important; }
+
+/* ==========================================================================
+   1. LAYOUT & SIDEBAR (KUNCI MATI LAYAR ANTI SCROLL LUAR)
+   ========================================================================== */
+.admin-layout {
+  display: flex; 
+  height: 100vh !important; /* 👈 KUNCI 1: Paksa tinggi pas 100% ukuran monitor */
+  width: 100vw;
+  overflow: hidden !important; /* 👈 KUNCI 2: Potong scroll luar/body web agar mati total */
+  background-color: var(--bg-main) !important;
+  color: var(--text-primary) !important;
+  margin: 0; padding: 0; position: absolute; top: 0; left: 0;
+}
+
+.admin-main { 
+  flex: 1; 
+  height: 100vh !important; /* 👈 KUNCI 3: Tinggi ngikutin layar */
+  padding: 0 !important; 
+  overflow-y: auto !important; /* 👈 KUNCI 4: Cuma kotak main ini aja yang boleh di-scroll */
+  background-color: var(--bg-main) !important; 
+  position: relative;
+}
+
+.admin-content {
+  padding: 30px 40px 40px 40px; /* Ruang bernapas untuk konten di bawah header */
+}
+
+.admin-sidebar {
+  width: 260px;
+  background-color: var(--bg-sidebar) !important;
+  border-right: 1px solid var(--border-color) !important;
+  display: flex; flex-direction: column; 
+  height: 100vh !important; /* 👈 Biar sidebar anteng */
+  padding: 0 20px 20px 20px; 
+  overflow-x: hidden; overflow-y: auto;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease; 
+}
+
+/* Sidebar Mengecil (Collapsed) */
+.admin-sidebar.collapsed { width: 0; padding: 0; border-right: none !important; opacity: 0; }
+.menu-text { white-space: nowrap; }
+
+
+/* ==========================================================================
+   2. HEADER, SAPAAN & TOMBOL TEMA (STICKY MANTENG TERUS)
+   ========================================================================== */
+.admin-header { 
+  display: flex; justify-content: space-between; align-items: center; 
+  position: sticky !important; 
+  top: 0 !important; 
+  z-index: 999 !important; /* 👈 Jamin header ada di lapis paling atas */
+  background-color: var(--bg-main) !important; 
+  padding: 20px 40px; 
+  border-bottom: 1px solid var(--border-color) !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.admin-header h1 { font-size: 1.8rem; color: var(--text-primary) !important; margin: 0; white-space: nowrap; }
+
+.header-desktop-right { display: flex; align-items: center; gap: 15px; }
+
+/* Hamburger Button PC */
+.hamburger-btn { background: none; border: none; color: var(--text-primary) !important; font-size: 1.8rem; cursor: pointer; transition: color 0.2s; }
+.hamburger-btn:hover { color: var(--wijaya-blue) !important; }
+/* ==========================================================================
+   3. KARTU, TABEL & KONTEN (SAPU BERSIH LAPORAN)
+   ========================================================================== */
+.admin-cards, .admin-table-container, .laporan-wrapper, .laporan-log-container, .modal-box, .custom-alert-box {
+  background-color: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  padding: 25px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 25px;
+}
+
+.admin-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; background: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important;}
+
+/* Aksen Kartu Pakai Biru */
+.card-stat { background-color: var(--bg-card) !important; padding: 25px; border-radius: 12px; border: 1px solid var(--border-color) !important; border-left: 6px solid var(--wijaya-blue) !important; }
+.card-stat h3 { color: var(--text-secondary) !important; font-size: 1rem; margin-bottom: 10px; }
+.card-stat p.stat-value { font-size: 2rem; font-weight: 700; margin: 0; color: var(--text-primary) !important; }
+
+/* Warna Teks Utility */
+.text-green { color: var(--wijaya-blue) !important; }
+.text-red { color: var(--wijaya-red) !important; }
+h2, h3, label { color: var(--text-primary) !important; }
+
+/* ==========================================================================
+   4. INPUT, DROPDOWN & TOMBOL REFRESH (ANTI NYELIP HITAM)
+   ========================================================================== */
+/* Memaksa SEMUA input/dropdown ikut tema */
+.input-search, .input-filter, .form-group input, .form-group select, .date-input-native {
+  background-color: var(--bg-input) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+  padding: 10px 15px; border-radius: 8px; outline: none; font-size: 0.95rem; font-family: inherit; width: 100%; box-sizing: border-box;
+}
+.input-search:focus, .input-filter:focus { border-color: var(--wijaya-blue) !important; }
+
+/* Fix Ikon Kalender Native */
+body.light-mode input[type="date"] { color-scheme: light !important; }
+body.dark-mode input[type="date"] { color-scheme: dark !important; }
+
+/* Fix Tombol Refresh Ikut Tema */
+.btn-refresh {
+  background-color: var(--bg-input) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+  padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: all 0.2s;
+}
+.btn-refresh:hover { background-color: var(--bg-hover) !important; }
+
+/* Tombol Aksi */
+.btn-toggle { width: 100%; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; color: white !important; }
+.btn-danger { background-color: var(--wijaya-red) !important; }
+.btn-success { background-color: var(--wijaya-blue) !important; }
+.btn-lunas { background-color: var(--color-success) !important; color: white !important; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+.btn-reschedule { background-color: var(--text-secondary) !important; color: white !important; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold;}
+.btn-batal-pesanan { background-color: transparent !important; color: var(--wijaya-red) !important; border: 1px solid var(--wijaya-red) !important; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+.btn-batal-pesanan:hover { background-color: var(--wijaya-red) !important; color: white !important; }
+
+/* ==========================================================================
+   5. LIST PESANAN (BOOKING CARD) & AKSSEN LUNAS HIJAU
+   ========================================================================== */
+.table-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+.table-controls { display: flex; gap: 10px; align-items: center; flex: 1; justify-content: flex-end; }
+.table-actions { display: flex; gap: 10px; }
+
+.booking-list { display: flex; flex-direction: column; gap: 15px; }
+.booking-card { 
+  background-color: var(--bg-input) !important; 
+  border-radius: 12px; padding: 15px 20px; 
+  border: 1px solid var(--border-color) !important; 
+  border-left: 6px solid var(--border-color) !important; 
+}
+.booking-card.card-dp { border-left-color: #f59e0b !important; }
+
+/* 👇 AKSEN LUNAS KEMBALI HIJAU 👇 */
+.booking-card.card-lunas { border-left-color: var(--color-success) !important; }
+.booking-card.card-batal { border-left-color: var(--wijaya-red) !important; opacity: 0.7; }
+
+.bc-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color) !important; padding-bottom: 10px; margin-bottom: 10px; }
+.bc-lapangan { font-weight: bold; color: var(--text-primary) !important; font-size: 1.05rem; }
+.bc-body { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+.bc-info { display: flex; flex-direction: column; gap: 6px; }
+.bc-nama { font-size: 1.15rem; color: var(--text-primary) !important; font-weight: bold; }
+/* Diubah jadi text-primary biar warnanya tebal / sama kayak nama pemesan */
+.bc-waktu, .bc-harga { font-size: 0.9rem; color: var(--text-primary) !important; font-weight: 500; }
+.bc-actions { display: flex; gap: 10px; align-items: center; }
+
+/* Badge Status Lunas/DP Pakai Warna Masing-masing */
+.lap-badge { font-size: 0.75rem; padding: 5px 10px; border-radius: 6px; font-weight: bold; letter-spacing: 1px; color: white !important; }
+.lap-badge.dp { background-color: #f59e0b !important; }
+
+/* 👇 BADGE LUNAS HIJAU 👇 */
+.lap-badge.lunas { background-color: var(--color-success) !important; }
+
+/* 👇 JURUS PASTI TEKS STATUS (PISAHKAN WARNANYA) 👇 */
+.text-locked { color: var(--text-status) !important; font-size: 0.85rem; font-style: italic; font-weight: bold; }
+.text-selesai { color: var(--color-success) !important; font-size: 0.85rem; font-weight: bold; } /* Kembali Hijau! */
+.text-lunas { color: var(--wijaya-blue) !important; font-size: 0.85rem; font-weight: bold; } /* Biru Wijaya! */
+
+/* ==========================================================================
+   6. LAPORAN KEUANGAN BARU
+   ========================================================================== */
+.laporan-summary-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-bottom: 25px; }
+.summary-box { padding: 20px; border-radius: 12px; background-color: var(--bg-card) !important; border: 1px solid var(--border-color) !important; border-left: 6px solid; }
+.summary-box span { color: var(--text-secondary) !important; font-size: 0.9rem; }
+.summary-box h3, .summary-box h2 { margin-top: 10px; color: var(--text-primary) !important; }
+.summary-box.lunas { border-left-color: var(--wijaya-blue) !important; }
+.summary-box.dp { border-left-color: #f59e0b !important; }
+.summary-box.bersih { background-color: var(--wijaya-blue) !important; border: none !important; }
+.summary-box.bersih span, .summary-box.bersih h2 { color: #ffffff !important; }
+
+.laporan-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; background-color: var(--bg-input) !important; border-radius: 8px; border: 1px solid var(--border-color) !important; border-left: 4px solid var(--border-color) !important; margin-bottom: 10px; }
+.lap-info strong { color: var(--text-primary) !important; font-size: 1rem; }
+.lap-info span { color: var(--text-secondary) !important; font-size: 0.9rem; display: block; margin-top: 4px; }
+.lap-nominal { color: var(--text-primary) !important; font-weight: bold; }
+
+/* ==========================================================================
+   7. POP-UP MODAL (KOTAK MUNCUL)
+   ========================================================================= */
+.modal-overlay, .custom-alert-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 9999; backdrop-filter: blur(3px); }
+.btn-batal, .btn-alert-cancel { background-color: transparent !important; color: var(--text-secondary) !important; border: 1px solid var(--border-color) !important; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+.btn-batal:hover, .btn-alert-cancel:hover { background-color: var(--bg-hover) !important; }
+.btn-simpan, .btn-alert-confirm { background-color: var(--wijaya-blue) !important; color: white !important; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+
+/* ==========================================================================
+   🚨 JURUS MAGIC MOBILE RESPONSIVE (KHUSUS HP) 🚨
+   ========================================================================== */
+.mobile-header { display: none; }
+.sidebar-overlay { display: none; }
+.desktop-only { display: inline-flex; } /* Default Desktop Muncul */
+
+/* 👇 RAPIHKAN UKURAN TOMBOL JAM & DURASI BIAR LURUS SEJAJAR 👇 */
+.btn-jadwal-admin {
+  width: 85px !important; /* Paksa semua tombol punya lebar 85px (Kotak seragam) */
+  padding: 10px 0 !important; /* Padding atas-bawah 10px, kiri-kanan 0 biar gak melar */
+  text-align: center !important; /* Teks otomatis ke tengah */
+}
+
+/* 👇 TEKS WAKTU MAIN (BUNGLON) 👇 */
+.teks-waktu-main {
+  color: var(--wijaya-blue) !important; /* Biru di mode Terang */
+}
+body.dark-mode .teks-waktu-main {
+  color: #ffffff !important; /* Putih bersih di mode Gelap */
+}
+
+/* ==========================================================================
+   🚨 JURUS MAGIC MOBILE RESPONSIVE (KHUSUS HP) 🚨
+   ========================================================================== */
+@media (max-width: 768px) {
+
+  /* 👇 RAPIHKAN DURASI JADI KOTAK 4 KOLOM (LEBIH GENDUT & NYAMAN DIKLIK) 👇 */
+  .durasi-grid-mobile {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important; 
+    gap: 10px !important; /* Jarak antar kotak dilegakan sedikit */
+  }
+  
+  .durasi-grid-mobile button {
+    padding: 12px 5px !important; /* 👈 KUNCINYA DI SINI: Padding atas-bawah ditambah jadi 12px biar tombolnya lebih tinggi */
+    font-size: 0.95rem !important; /* 👈 Font dibesarkan sedikit biar lebih enak dibaca */
+    width: 100% !important;
+    text-align: center !important;
+    font-weight: bold !important;
+  }
+  
+  /* 👇 TOTAL BAYAR DIPAKSA SEBARIS ANTI TURUN 👇 */
+  .total-bayar-mobile {
+    font-size: 0.95rem !important; /* Perkecil font dari 1.15rem biar muat di HP */
+    white-space: nowrap !important; /* Kunci mati biar nggak jatuh ke baris bawah */
+  }
+
+  /* 👇 KEMBALIKAN SCROLL NORMAL DI HP (LEPAS GEMBOK LAYAR) 👇 */
+  .admin-layout { 
+    flex-direction: column; 
+    position: relative; 
+    height: auto !important; /* Lepas paksaan tinggi */
+    overflow: visible !important; /* Biarkan scroll natural */
+  }
+  .admin-main { 
+    height: auto !important; 
+    overflow: visible !important; 
+    padding: 0 !important; 
+  }
+
+  /* 👇 HEADER MOBILE (LOGO & TEMA) TETAP NANGKRING DI ATAS 👇 */
+  .mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg-sidebar) !important; 
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color) !important;
+    position: sticky !important; 
+    top: 0 !important; 
+    z-index: 999 !important;
+  }
+  
+  .mobile-logo-img { max-height: 30px !important; width: auto !important; object-fit: contain !important; }
+  .hamburger-btn { background: none; border: none; color: var(--text-primary) !important; font-size: 1.8rem; cursor: pointer; }
+  
+  .desktop-only { display: none !important; }
+  
+  /* Sidebar HP Off-Canvas */
+  .admin-sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 260px; z-index: 1000; transform: translateX(-100%); transition: transform 0.3s ease-in-out; height: 100vh !important; }
+  .admin-sidebar.open { transform: translateX(0); }
+  .sidebar-overlay { display: block; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.6); z-index: 999; }
+  .sidebar-brand { display: flex !important; justify-content: center; align-items: center; padding: 10px 10px 10px 1px !important; border-bottom: 1px solid var(--border-color) !important; margin-bottom: 10px; } 
+  
+  /* 👇 JADIKAN HEADER DESKTOP SEBAGAI TEKS BIASA DI HP (TIDAK STICKY) 👇 */
+  .admin-header { 
+    display: flex !important; /* Tetap dimunculkan agar judul halamannya kelihatan */
+    position: relative !important; /* Lepas gembok sticky */
+    top: auto !important;
+    z-index: 1 !important;
+    padding: 20px 20px 5px 20px !important;
+    border-bottom: none !important; /* Hilangkan garis bawah biar nyatu sama konten */
+    background: transparent !important;
+  }
+  .admin-header h1 { font-size: 1.5rem !important; }
+
+  /* Penyesuaian Ruang Konten di HP */
+  .admin-content { padding: 0 20px 20px 20px !important; }
+  
+  /* Rapihkan Elemen-elemen Lainnya di HP */
+  .table-header, .table-controls, .form-group-flex, .bc-body, .laporan-header-filter { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .bc-actions { width: 100%; justify-content: space-between; margin-top: 10px; }
+  .bc-actions button { flex: 1; text-align: center; }
+  
+  .input-search, .table-actions { width: 100%; margin: 0; }
+  .table-actions { flex-direction: row; }
+  .table-actions input, .table-actions button { flex: 1; }
+  
+  .laporan-summary-cards { display: flex !important; flex-direction: column !important; }
+}
+
+@media (min-width: 992px) { .admin-cards.mobile-compact-card { grid-template-columns: repeat(3, 1fr) !important; } }
+
+.btn-refresh {
+  background-color: var(--bg-input) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+  padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; 
+  display: flex; align-items: center; gap: 8px; transition: all 0.2s;
+}
+.btn-refresh:hover { background-color: var(--bg-hover) !important; }
+
+/* ==========================================================================
+   STYLE BADGE STATUS (TRANSPARAN ELEGAN MODERN)
+   ========================================================================== */
+.lap-badge { 
+  font-size: 0.75rem; 
+  padding: 5px 10px; 
+  border-radius: 6px; 
+  font-weight: 800; 
+  letter-spacing: 1px; 
+}
+
+/* 👇 BADGE DP (Kuning Transparan) 👇 */
+.booking-card .bc-header .lap-badge.dp,
+.lap-nominal .lap-badge.dp,
+.lap-badge.dp { 
+  background-color: rgba(245, 158, 11, 0.15) !important; /* Background kuning pudar */
+  color: #f59e0b !important; /* Teks kuning tebal */
+  border: 1px solid rgba(245, 158, 11, 0.5) !important; /* Garis pinggir kuning tipis */
+}
+
+/* 👇 BADGE LUNAS (Hijau Transparan) 👇 */
+.booking-card .bc-header .lap-badge.lunas,
+.lap-nominal .lap-badge.lunas,
+.lap-badge.lunas { 
+  background-color: rgba(16, 185, 129, 0.15) !important; /* Background hijau pudar */
+  color: #10b981 !important; /* Teks hijau tebal */
+  border: 1px solid rgba(16, 185, 129, 0.5) !important; /* Garis pinggir hijau tipis */
+  text-shadow: none !important;
+}
+
+/* 👇 JURUS TEKS STATUS ANTI GAIB (HITAM/PUTIH) 👇 */
+.text-status, .text-locked, .text-selesai, .text-lunas {
+  color: var(--text-status) !important; /* Akan otomatis Hitam di Light, Putih di Dark */
+  font-size: 0.85rem; 
+  font-style: italic; 
+  font-weight: bold;
+}
+
+/* ==========================================================================
+   2. GAYA MENU SIDEBAR BARU (MODERN & MINIMALIS)
+   ========================================================================== */
+.sidebar-menu li {
+  display: flex;
+  align-items: center; /* Jaga agar nomor, ikon, dan teks sejajar vertikal */
+  padding: 12px 20px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.sidebar-menu li:hover {
+  background-color: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.sidebar-menu li.active {
+  background-color: var(--wijaya-blue);
+  color: #ffffff;
+}
+
+/* 👇 CSS BARU UNTUK NOMOR URUT MENU 👇 */
+.menu-number {
+  color: var(--wijaya-blue); /* Gunakan warna primary Wijaya untuk nomor */
+  font-size: 0.85rem;
+  margin-right: 15px; /* Jarak antara nomor dan ikon */
+  opacity: 0.8;
+}
+
+.sidebar-menu li.active .menu-number {
+  color: #ffffff; /* Ubah nomor jadi putih saat aktif */
+  opacity: 1;
+}
+
+.sidebar-menu li i {
+  font-size: 1.2rem;
+  margin-right: 15px; /* Jarak antara ikon dan teks */
+  color: var(--text-secondary); /* Warna ikon biarkan abu-abu di light mode */
+}
+
+.sidebar-menu li.active i {
+  color: #ffffff; /* Ubah ikon jadi putih saat aktif */
+}
+
+.menu-text {
+  flex: 1; /* Biarkan teks mengisi sisa ruang */
+  color: var(--text-secondary); /* Default text color */
+}
+
+.sidebar-menu li:hover .menu-text {
+  color: var(--text-primary); /* Text color on hover */
+}
+
+.sidebar-menu li.active .menu-text {
+  color: #ffffff; /* Ubah teks jadi putih saat aktif */
+  font-weight: bold;
+}
+
+/* ==========================================================================
+   2. GAYA MENU SIDEBAR BARU (MODERN, CLEAN & DINAMIS)
+   ========================================================================== */
+
+/* 👇 PERKECIL LOGO SIDEBAR DESKTOP 👇 */
+.sidebar-brand img {
+  max-width: 110px !important; /* Logo diperkecil biar proporsional dan elegan */
+  height: auto !important;
+}
+
+.sidebar-brand { 
+  padding: 5px 10px 1px 20px !important; 
+  text-align: left; 
+  margin-bottom: 35px !important; /* 👈 INI YANG DITAMBAH (Jarak diperbesar jadi 35px) */
+  display: flex; 
+  justify-content: left; 
+} 
+
+.sidebar-menu { list-style: none; flex: 1; padding: 0; margin: 0; }
+
+/* Gaya Dasar Menu (Teks & Ikon otomatis Hitam/Putih) */
+.sidebar-menu li {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  color: var(--text-primary) !important; /* 👈 Kunci Hitam di Light, Putih di Dark */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 600;
+}
+
+/* Efek Sorot (Hover) */
+.sidebar-menu li:hover {
+  background-color: var(--bg-hover) !important;
+}
+
+/* 👇 MENU AKTIF: BIRU TRANSPARAN + GARIS MERAH KIRI 👇 */
+.sidebar-menu li.active {
+  background-color: rgba(36, 45, 102, 0.12) !important; /* Biru Wijaya Transparan */
+  border-left: 5px solid var(--wijaya-red) !important; /* List Merah di pinggir */
+  border-radius: 0 8px 8px 0 !important; /* Sudut disesuaikan karena ada garis potong */
+  color: var(--text-primary) !important;
+}
+
+/* 👇 WARNA IKON, TEKS, & NOMOR (SELALU IKUT TEMA) 👇 */
+.sidebar-menu li i, 
+.menu-number, 
+.menu-text {
+  color: var(--text-primary) !important; 
+}
+
+.menu-number {
+  font-size: 0.85rem;
+  margin-right: 15px;
+  opacity: 0.6; /* Angka sedikit redup biar gak nutupin teks utama */
+}
+/* 👇 MENU AKTIF: BIRU TRANSPARAN + GARIS MERAH MELENGKUNG 👇 */
+.sidebar-menu li.active {
+  background-color: rgba(36, 45, 102, 0.12) !important; /* Biru Wijaya Transparan */
+  border-left: 5px solid var(--wijaya-red) !important; /* List Merah di pinggir */
+  border-radius: 8px !important; /* 👈 UBAH JADI 8px (Biar ujung garis merahnya ikut melengkung manis) */
+  color: var(--text-primary) !important;
+}
+.sidebar-menu li i {
+  font-size: 1.2rem;
+  margin-right: 15px;
+}
+
+/* 👇 TOMBOL LOGOUT MERAH PEKAT PERMANEN 👇 */
+.btn-logout { 
+  background-color: var(--wijaya-red) !important; /* Merah pekat solid */
+  color: #ffffff !important; /* Teks dasar putih mutlak */
+  border: none !important; 
+  padding: 12px 15px; 
+  border-radius: 8px; 
+  cursor: pointer; 
+  font-weight: bold; 
+  margin-top: auto; 
+  transition: background-color 0.3s ease;
+  
+  /* Bikin posisi Ikon & Teks rapi di tengah saling deketan */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important; 
+  gap: 10px !important; 
+}
+
+/* 👇 PAKSA IKON & TEKS DI DALAM LOGOUT SELALU PUTIH & BERDEKATAN 👇 */
+.btn-logout i,
+.btn-logout .menu-text {
+  color: #ffffff !important; /* Menolak ikut tema, harus putih! */
+  margin: 0 !important; /* Buang margin aneh-aneh biar gap-nya yang kerja */
+  flex: none !important; /* 👈 INI KUNCINYA: Cegah teks melar dorong ikon ke pinggir */
+}
+
+/* Efek Hover (Merah lebih gelap sedikit saat disorot) */
+.btn-logout:hover { 
+  background-color: #851a21 !important; 
+}
+
+/* ==========================================================================
+   PAGINATION (TOMBOL HALAMAN BAWAH)
+   ========================================================================== */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 25px;
+  flex-wrap: wrap; /* Biar di HP gak nabrak ke samping */
+}
+
+.pagination-btn {
+  background-color: var(--bg-input) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background-color: var(--bg-hover) !important;
+  border-color: var(--wijaya-blue) !important;
+  color: var(--wijaya-blue) !important;
+}
+
+.pagination-btn.active {
+  background-color: var(--wijaya-blue) !important;
+  color: #ffffff !important;
+  border-color: var(--wijaya-blue) !important;
+  box-shadow: 0 4px 8px rgba(36, 45, 102, 0.3);
+}
+
+.pagination-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* 👇 JURUS MELURUSKAN INPUT NAMA PELANGGAN (ANTI MENGGESER) 👇 */
+.form-group .input-search,
+.form-group input,
+.form-group select {
+  margin-left: 0 !important; 
+  margin-right: 0 !important;
+  margin-top: 8px !important; /* Kasih jarak napas sedikit dari tulisan Label-nya */
+  width: 100% !important;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Paksa semua isi form rata kiri mutlak */
+}
+
+/* =========================================
+   SPECIAL STYLING: KELOLA JADWAL (COMPACT BARU)
+   ========================================= */
+
+.jadwal-header-compact {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: flex-end !important;
+  gap: 20px !important;
+  margin-bottom: 15px !important; /* Jarak diperkecil karena di bawahnya ada Search */
+  flex-wrap: wrap !important;
+}
+
+.jadwal-header-kiri {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.jadwal-header-kanan {
+  display: flex !important;
+  gap: 10px !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  justify-content: flex-end !important;
+}
+
+/* Styling Tombol Filter Status Kapsul */
+.btn-filter-status {
+  padding: 6px 18px !important;
+  border-radius: 20px !important;
+  font-size: 0.85rem !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  color: var(--text-primary) !important;
+  background: var(--bg-input) !important;
+  border: 1px solid var(--border-color) !important;
+  transition: all 0.2s ease !important;
+}
+
+.btn-filter-status.active {
+  background: var(--active-bg) !important;
+  border-color: var(--active-bg) !important;
+  color: #fff !important;
+}
+
+.jadwal-header-kanan .input-filter {
+  height: 38px !important;
+  padding: 0 12px !important;
+  margin: 0 !important;
+}
+
+/* 👇 STYLING BARU UNTUK SEARCH BAR FULL WIDTH 👇 */
+.jadwal-search-full {
+  width: 100% !important;
+  margin-bottom: 25px !important;
+  padding-bottom: 20px !important;
+  border-bottom: 1px solid var(--border-color) !important; /* Garis pemisah pindah ke bawah Search */
+}
+
+.jadwal-search-full .input-search {
+  width: 100% !important; /* Paksa memanjang penuh */
+  max-width: 100% !important;
+  height: 42px !important; /* Sedikit lebih tinggi biar enak diketik */
+  font-size: 1rem !important;
+  margin: 0 !important;
+}
+
+/* =========================================
+   MEDIA QUERY: HP (MOBILE <= 768px)
+   ========================================= */
+@media (max-width: 768px) {
+  .jadwal-header-compact {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  
+  .jadwal-header-kanan {
+    justify-content: flex-start !important;
+    width: 100% !important;
+  }
+  
+  .jadwal-header-kanan select,
+  .jadwal-header-kanan input {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* =========================================
+   SPECIAL STYLING: FORM PROMO MODAL (FIXED FULL WIDTH & LEFT ALIGN)
+   ========================================= */
+.promo-modal {
+  max-width: 500px !important;
+  width: 95% !important; /* Sedikit lebih lebar dari 90% biar pas di HP */
+  max-height: 85vh !important;
+  overflow-y: auto !important;
+  padding: 25px 20px !important; /* Sedikit dirapatkan kiri-kanan padding-nya */
+}
+
+.form-group-flex {
+  display: flex !important;
+  gap: 15px !important;
+  width: 100% !important;
+}
+
+.form-group-promo {
+  display: flex !important;
+  flex-direction: column !important;
+  margin-bottom: 15px !important;
+  flex: 1 !important;
+  width: 100% !important; /* Pastikan group ini ambil lebar penuh container */
+  align-items: flex-start !important; /* 👇 INI KUNCINYA: Paksa semua anak (label/input) rata KIRI 👇 */
+}
+
+.form-group-promo label {
+  font-weight: bold !important;
+  margin-bottom: 6px !important;
+  font-size: 0.9rem !important;
+  color: var(--text-primary) !important;
+  text-align: left !important; /* 👇 INI KUNCINYA JUGA: Teks label dipaksa rata KIRI 👇 */
+  width: 100% !important; /* Pastikan label ambil lebar penuh area label */
+}
+
+.form-group-promo .input-filter {
+  width: 100% !important; /* 👇 INI JURUS FULL WIDTH: Kolom input dipaksa penuh 100% 👇 */
+  margin: 0 !important;
+  height: 42px !important;
+  box-sizing: border-box !important; /* Biar padding gak nambah lebar kotak */
+}
+
+.modal-actions-promo {
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 10px !important;
+  margin-top: 20px !important;
+  width: 100% !important; /* Pastikan tombol aksi ambil lebar penuh di HP */
+}
+
+.modal-actions-promo button {
+  padding: 10px 20px !important;
+  border-radius: 8px !important;
+  font-weight: bold !important;
+  font-size: 0.95rem !important;
+  cursor: pointer !important;
+}
+
+/* =========================================
+   MEDIA QUERY: HP (MOBILE <= 768px)
+   ========================================= */
+@media (max-width: 768px) {
+  .promo-modal {
+    padding: 20px 15px !important; /* Padding lebih tipis lagi di HP */
+  }
+  
+  .form-group-flex {
+    flex-direction: column !important;
+    gap: 0 !important;
+    width: 100% !important;
+  }
+  
+  .form-group-promo {
+    margin-bottom: 12px !important;
+    width: 100% !important; /* Paksa group input ambil lebar 100% di HP */
+  }
+
+  .form-group-promo label {
+    text-align: left !important; /* Pastikan label tetap rata kiri di HP */
+    margin-bottom: 4px !important;
+  }
+  
+  .form-group-promo .input-filter {
+    width: 100% !important; /* Jaminan kolom input FULL memanjang ke kanan di HP */
+  }
+  
+  .modal-actions-promo {
+    flex-direction: column-reverse !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+  
+  .modal-actions-promo button {
+    width: 100% !important; /* Tombol jadi lebar penuh di HP biar gampang ditekan */
+    text-align: center !important;
+  }
+}
+
+/* =========================================
+   SPECIAL STYLING: LAPORAN KEUANGAN
+   ========================================= */
+.container-laporan {
+  padding-bottom: 30px !important;
+}
+
+.laporan-header-compact {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 15px !important;
+  margin-bottom: 25px !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  padding-bottom: 15px !important;
+}
+
+.laporan-header-kanan {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  flex-wrap: wrap !important;
+}
+
+/* 👇 TOMBOL SEMUA WAKTU YANG BARU 👇 */
+.btn-semua-waktu {
+  height: 38px !important;
+  padding: 0 15px !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--border-color) !important;
+  background: var(--bg-input) !important;
+  color: var(--text-primary) !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  transition: all 0.2s !important;
+}
+.btn-semua-waktu.active {
+  background: #10b981 !important;
+  color: #fff !important;
+  border-color: #10b981 !important;
+}
+
+.laporan-summary-cards {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
+  gap: 20px !important;
+  margin-bottom: 30px !important;
+}
+
+/* 👇 KARTU SUMMARY DENGAN BORDER KIRI TEBAL 👇 */
+.summary-box {
+  background: var(--bg-card) !important;
+  padding: 20px !important;
+  border-radius: 10px !important;
+  border: 1px solid var(--border-color) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05) !important;
+  overflow: hidden !important; /* Cegah warna border bocor */
+}
+
+.summary-box.lunas { border-left: 6px solid #10b981 !important; }
+.summary-box.dp { border-left: 6px solid #f59e0b !important; }
+.summary-box.bersih { 
+  border-left: 6px solid #3b82f6 !important; 
+  background: var(--wijaya-blue) !important; 
+}
+
+.summary-box span {
+  font-size: 0.9rem !important;
+  color: var(--text-secondary) !important;
+  font-weight: bold !important;
+}
+
+.summary-box h3, .summary-box h2 {
+  margin: 0 !important;
+  color: var(--text-primary) !important;
+  font-size: 1.5rem !important;
+}
+
+/* 👇 SEARCH BAR & REFRESH YANG DIPANJANGKAN & DISINKRONKAN 👇 */
+.rincian-header-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 15px !important;
+  background: rgba(0,0,0,0.1) !important;
+  padding: 15px 20px !important;
+  border-radius: 8px !important;
+}
+
+.search-action-group {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  flex-grow: 1 !important; /* KUNCINYA: Paksa grup pencarian memanjang */
+  justify-content: flex-end !important; /* Rapatkan ke kanan */
+}
+
+.input-search-laporan {
+  width: 100% !important;
+  max-width: 500px !important; /* Memanjang mentok sampai Rincian Transaksi */
+  height: 38px !important;
+  margin: 0 !important;
+  flex-grow: 1 !important; /* Paksa input-nya mengisi ruang kosong */
+}
+
+/* Tombol Refresh Anti Putih */
+.btn-refresh-laporan {
+  height: 38px !important;
+  padding: 0 15px !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--border-color) !important;
+  background: var(--bg-input) !important; /* Paksa warna background gelap/input */
+  color: var(--text-primary) !important; /* Text putih */
+  font-weight: bold !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  white-space: nowrap !important;
+}
+.btn-refresh-laporan:hover {
+  background: var(--bg-hover) !important;
+}
+
+/* =========================================
+   MEDIA QUERY: HP (MOBILE <= 768px)
+   ========================================= */
+@media (max-width: 768px) {
+  .laporan-header-compact {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  .laporan-header-kanan {
+    width: 100% !important;
+  }
+  .laporan-header-kanan select, 
+  .laporan-header-kanan input, 
+  .laporan-header-kanan button {
+    flex: 1 !important;
+  }
+  
+  .rincian-header-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  
+  .search-action-group {
+    width: 100% !important;
+    flex-direction: column !important;
+  }
+  
+  .input-search-laporan {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .btn-refresh-laporan {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}

@@ -56,6 +56,7 @@ class BookingController extends Controller
         $booking = \App\Models\Booking::create([
             'user_id' => $request->user_id,
             'nama_pemesan' => $request->nama_pemesan,
+            'no_wa' => $request->no_wa,
             'lapangan_id' => $request->lapangan_id,
             'tanggal_main' => $request->tanggal_main,
             'jam_mulai' => $request->jam_mulai,
@@ -138,11 +139,13 @@ class BookingController extends Controller
         ]);
     }
 
-    // FUNGSI KHUSUS ADMIN: Mengambil semua data pesanan
+    // FUNGSI KHUSUS ADMIN: Mengambil semua data pesanan (TANPA PENDING)
     public function getAllBookings()
     {
         $bookings = \App\Models\Booking::join('lapangans', 'bookings.lapangan_id', '=', 'lapangans.id')
             ->select('bookings.*', 'lapangans.nama_lapangan')
+            // 👇 INI GEMBOKNYA: Jangan ambil yang statusnya mengandung kata 'Pending' 👇
+            ->where('bookings.status_pembayaran', 'not like', '%Pending%')
             ->orderBy('bookings.created_at', 'desc')
             ->get();
 
@@ -321,5 +324,36 @@ class BookingController extends Controller
             return response()->json(['status' => 'sukses', 'pesan' => 'Pesanan dihapus karena batal bayar']);
         }
         return response()->json(['status' => 'gagal', 'pesan' => 'Data tidak ditemukan'], 404);
+    }
+
+    // FUNGSI KHUSUS ADMIN: Booking Manual tanpa Midtrans (Jalur VIP)
+    public function storeManualAdmin(Request $request)
+    {
+        $request->validate([
+            'nama_pemesan' => 'required|string|max:255',
+            'lapangan_id' => 'required|exists:lapangans,id',
+            'tanggal_main' => 'required|date',
+            'jam_mulai' => 'required',
+            'jam_selesai' => 'required',
+            'total_harga' => 'required|numeric',
+            'status_pembayaran' => 'required' // DP atau Lunas
+        ]);
+
+        $booking = \App\Models\Booking::create([
+            'user_id' => null, // Admin yang pesenin
+            'nama_pemesan' => $request->nama_pemesan . ' (Via Admin)',
+            'no_wa' => $request->no_wa,
+            'lapangan_id' => $request->lapangan_id,
+            'tanggal_main' => $request->tanggal_main,
+            'jam_mulai' => $request->jam_mulai,
+            'jam_selesai' => $request->jam_selesai,
+            'total_harga' => $request->total_harga, 
+            'status_pembayaran' => $request->status_pembayaran, // Langsung jadi DP/Lunas tanpa pending
+        ]);
+
+        return response()->json([
+            'status' => 'sukses',
+            'pesan' => 'Booking manual berhasil ditambahkan!'
+        ]);
     }
 }

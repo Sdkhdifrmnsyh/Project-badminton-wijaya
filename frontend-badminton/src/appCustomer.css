@@ -1,0 +1,1364 @@
+/* Mengambil font modern dari Google */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+/* ==============================================================
+   🌟 GLOBAL SMOOTH TRANSITION UNTUK DARK/LIGHT MODE
+   ============================================================== */
+*, *::before, *::after {
+  /* Memaksa semua perubahan warna memakan waktu 0.4 detik dengan pergerakan halus */
+  transition: background-color 0.1s ease-in-out, 
+              background 0.1s ease-in-out, 
+              color 0.1s ease-in-out, 
+              border-color 0.1s ease-in-out, 
+              box-shadow 0.1s ease-in-out !important;
+}
+
+/* Pengecualian: Jangan beri transisi pada properti ukuran/tata letak 
+   agar animasi layout (seperti hover membesar) tidak ikut melambat */
+.bell-notification, .btn-pilih, .history-btn, .theme-toggle-btn {
+  transition: transform 0.2s ease, 
+              background-color 0.4s ease-in-out, 
+              color 0.4s ease-in-out !important;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* =========================================================
+   === JURUS SAKTI: PEMISAH TEMA ADMIN & CUSTOMER ===
+   ========================================================= */
+
+/* Default Body: Gelap (Menyelamatkan Admin & Halaman Login) */
+body {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+/* Sihir: Jika di halaman Customer (.app-container), ubah body jadi Terang! */
+body:has(.app-container), body:has(.info-page-wrapper) {
+  background-color: #f4f6f9 !important;
+  color: #1f2937 !important;
+}
+
+#root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* =========================================================
+   === 1. TEMA TERANG CUSTOMER (NAVY #242c63 & MERAH #a32129) ===
+   ========================================================= */
+
+.app-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px 20px 100px 20px;
+}
+
+/* --- HEADER CUSTOMER & LOGO --- */
+.customer-header {
+  background: #ffffff; display: flex; justify-content: flex-start; align-items: center; gap: 20px;
+  padding: 12px 20px; border-bottom: 2px solid #e5e7eb; box-shadow: 0 4px 15px rgba(36, 44, 99, 0.08);
+  position: sticky; top: 0; z-index: 1000; margin: -20px -20px 30px -20px;
+}
+.hamburger-btn { background: none; border: none; padding: 0; color: #242c63; font-size: 2.2rem; cursor: pointer; transition: all 0.2s; }
+.hamburger-btn:hover { color: #a32129; transform: scale(1.1); }
+.wijaya-logo-wrapper { display: flex; align-items: center; cursor: pointer; text-decoration: none; }
+.header-logo-img { height: 48px; width: auto; object-fit: contain; }
+
+/* --- JUDUL SELAMAT DATANG --- */
+.header { text-align: center; margin-bottom: 40px; }
+.header h1 { color: #242c63; font-size: 2.2rem; font-weight: 800; margin-bottom: 10px; }
+.header p { color: #6b7280; font-size: 1rem; }
+
+/* --- FORM PEMESANAN --- */
+.booking-form {
+  background-color: #ffffff; padding: 25px; border-radius: 12px; margin-bottom: 40px;
+  border: 1px solid #e5e7eb; box-shadow: 0 8px 20px rgba(36, 44, 99, 0.05); text-align: center;
+}
+.booking-form h3 { margin-bottom: 20px; color: #242c63; font-weight: 700; }
+.input-group { display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; }
+.input-group input { padding: 12px 15px; border-radius: 8px; border: 1px solid #d1d5db; background-color: #f9fafb; color: #1f2937; font-size: 1rem; outline: none; }
+.input-group input:focus { border-color: #242c63; }
+
+/* --- GRID & KARTU LAPANGAN --- */
+.lapangan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+.lapangan-img { 
+  width: 100%; 
+  height: auto; /* Gambar utuh apa adanya */
+  display: block; 
+  border-bottom: 4px solid #a32129; 
+}
+
+/* --- BENTUK KARTU LAPANGAN (KEMBALI KE ASAL) --- */
+.lapangan-card { 
+  background-color: #ffffff; 
+  border-radius: 12px; 
+  overflow: hidden; 
+  border: 1px solid #e5e7eb; 
+  box-shadow: 0 8px 20px rgba(36, 44, 99, 0.08); 
+  display: flex;
+  flex-direction: column;
+}
+.card-content { padding: 25px; }
+.card-content h2 { font-size: 1.5rem; margin-bottom: 10px; color: #242c63; font-weight: 800; }
+.info-lapangan { background-color: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #e5e7eb; margin-bottom: 20px; color: #4b5563; font-size: 0.9rem; line-height: 1.6; }
+.harga { font-size: 2rem; font-weight: 800; color: #a32129; margin-bottom: 20px; }
+.harga span { font-size: 1rem; color: #6b7280; font-weight: 500; }
+
+/* Override Inline Style Gelap React */
+.lapangan-card div[style*="#2a2a2a"] { background-color: #f3f4f6 !important; border-left-color: #242c63 !important; color: #1f2937 !important; }
+.lapangan-card div[style*="#2a2a2a"] strong { color: #a32129 !important; }
+
+/* --- SLOT JAM & DURASI --- */
+.slot-jam-wrapper p, .durasi-wrapper p { font-size: 0.95rem; font-weight: 600; color: #242c63; margin-bottom: 12px; }
+.slot-jam-container, .durasi-container { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 25px; }
+.btn-slot, .btn-durasi { background-color: #ffffff; color: #242c63; border: 1px solid #d1d5db; border-radius: 6px; padding: 8px 0; font-size: 0.9rem; font-weight: 600; cursor: pointer; flex: 1 1 calc(25% - 8px); }
+.btn-slot:hover, .btn-durasi:hover { border-color: #242c63; background-color: #f0f4f8; }
+.btn-slot.aktif, .btn-durasi.aktif { background-color: #242c63; color: #ffffff; border-color: #242c63; }
+.btn-slot.penuh, .btn-durasi.penuh { background-color: #f3f4f6; color: #9ca3af; border-color: #e5e7eb; cursor: not-allowed; }
+.durasi-wrapper { background-color: #ffffff; padding: 15px; border-radius: 8px; border: 1px solid #e5e7eb; border-left: 4px solid #a32129; }
+.indikator-jam { color: #a32129 !important; font-size: 1.05rem !important; }
+
+/* --- PEMBAYARAN --- */
+.rincian-harga { background-color: #ffffff !important; border: 1px solid #e5e7eb !important; }
+.rincian-harga span { color: #4b5563 !important; }
+.rincian-harga strong { color: #242c63 !important; }
+.opsi-bayar-wrapper { margin: 20px 0; background-color: #ffffff; padding: 15px; border-radius: 8px; border: 1px solid #e5e7eb; border-left: 4px solid #242c63; }
+.opsi-bayar-wrapper p { color: #242c63; font-weight: 600; font-size: 0.95rem; margin-bottom: 12px; }
+.opsi-bayar-container { display: flex; flex-direction: column; gap: 10px; }
+.opsi-label { display: flex; align-items: center; gap: 10px; padding: 12px 15px; background-color: #ffffff; border: 1px solid #d1d5db; border-radius: 8px; cursor: pointer; color: #1f2937; font-weight: 500; }
+.opsi-label:hover { border-color: #242c63; }
+.opsi-label.aktif { border-color: #a32129; background-color: rgba(163,33,41,0.05); color: #a32129; font-weight: 700; }
+.btn-pilih { width: 100%; padding: 16px; border: none; border-radius: 8px; background-color: #a32129; color: #ffffff; font-size: 1.1rem; font-weight: 700; cursor: pointer; }
+.btn-pilih:hover { background-color: #811920; }
+
+/* --- SIDEBAR LACI CUSTOMER --- */
+.gor-wijaya-customer-menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0, 0, 0, 0.6); z-index: 1040; opacity: 0; visibility: hidden; transition: all 0.3s; }
+.gor-wijaya-customer-menu-overlay.open { opacity: 1; visibility: visible; }
+.gor-wijaya-customer-menu-drawer { position: fixed; top: 0; left: -320px; width: 300px; height: 100vh; background: #ffffff; z-index: 1050; transition: left 0.4s; display: flex; flex-direction: column; }
+.gor-wijaya-customer-menu-drawer.open { left: 0; }
+.drawer-header { display: flex; justify-content: space-between; align-items: center; padding: 20px; border-bottom: 2px solid #f3f4f6; }
+.drawer-close-btn { background: none; border: none; color: #242c63; font-size: 1.8rem; cursor: pointer; }
+.customer-drawer-menu-item { padding: 18px 25px; color: #4b5563; text-decoration: none; font-size: 1.05rem; font-weight: 500; display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #f9fafb; }
+.customer-drawer-menu-item i { font-size: 1.3rem; color: #a32129; width: 28px; }
+.customer-drawer-menu-item:hover { background: #f4f6f9; color: #242c63; padding-left: 35px; border-left: 4px solid #a32129; }
+
+/* --- INFO PAGES --- */
+.info-page-wrapper { min-height: 100vh; display: flex; flex-direction: column; background: #f4f6f9; }
+.info-content { flex: 1; padding: 40px 20px; max-width: 800px; margin: 0 auto; width: 100%; color: #1f2937; }
+.info-title { color: #242c63; font-size: 2rem; font-weight: 800; margin-bottom: 30px; display: flex; align-items: center; gap: 10px; }
+.info-title i { color: #a32129; }
+.info-card { background: #ffffff; padding: 25px; border-radius: 12px; border: 1px solid #e5e7eb; margin-bottom: 20px; display: flex; flex-direction: column; }
+.info-card h3 { color: #242c63; font-size: 1.3rem; margin-bottom: 15px; font-weight: 700; }
+.info-card p, .info-card li { color: #4b5563; line-height: 1.7; margin-bottom: 10px; }
+.info-card-img { 
+  width: 100%; 
+  height: auto; /* Biarkan tinggi menyesuaikan aslinya */
+  display: block; 
+  border-radius: 10px; 
+  margin-bottom: 15px; 
+  border: 1px solid #e5e7eb; 
+}
+.text-info-highlight { color: #a32129 !important; font-weight: 700; }
+
+
+/* =========================================================
+   === 2. RUANG ADMIN ORIGINAL (100% AMAN & TIDAK TERSENTUH) ===
+   ========================================================= */
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #121212;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* SIDEBAR KIRI */
+.admin-sidebar {
+  width: 260px; background-color: #1a1a1a; border-right: 1px solid #333;
+  display: flex; flex-direction: column; padding: 20px;
+  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+}
+.sidebar-brand h2 { color: #4ade80; font-size: 1.5rem; margin-bottom: 40px; text-align: center; }
+.sidebar-menu { list-style: none; flex: 1; }
+.sidebar-menu li { padding: 15px; margin-bottom: 10px; border-radius: 8px; color: #a1a1aa; cursor: pointer; transition: all 0.3s; }
+.sidebar-menu li:hover { background-color: #2d2d2d; color: #fff; }
+.sidebar-menu li.active { background-color: #4ade80; color: #121212; font-weight: 600; }
+
+.admin-sidebar .btn-logout { margin-top: auto; margin-bottom: 20px; }
+.btn-logout { background-color: #ef4444; color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+.btn-logout:hover { background-color: #dc2626; }
+
+/* KONTEN UTAMA KANAN */
+.admin-main { flex: 1; padding: 40px; overflow-y: auto; }
+.admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+.admin-header h1 { font-size: 2rem; color: #fff; margin-bottom: 5px; }
+
+/* KOTAK STATISTIK */
+.admin-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 40px; }
+.card-stat { background-color: #1e1e1e; padding: 25px; border-radius: 15px; border-left: 5px solid #4ade80; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+.card-stat h3 { color: #a1a1aa; font-size: 1rem; margin-bottom: 15px; }
+.stat-value { font-size: 2rem; font-weight: 700; margin-bottom: 15px; }
+.text-green { color: #4ade80; }
+.text-red { color: #ef4444; }
+
+.btn-toggle { width: 100%; padding: 10px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+.btn-danger { background-color: #ef4444; color: white; }
+.btn-success { background-color: #4ade80; color: #121212; }
+
+/* TABEL MEWAH */
+.admin-table-container { background-color: #1e1e1e; padding: 25px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+.table-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; width: 100%; }
+.table-controls { display: flex; flex-direction: row; align-items: center; justify-content: flex-end; flex: 1; gap: 15px; }
+.input-search { background: #2d2d2d; color: white; border: 1px solid #444; padding: 10px 15px; border-radius: 8px; outline: none; font-size: 1rem; margin-left: 20px; flex: 1; }
+.input-search:focus { border-color: #4ade80; }
+.table-actions { display: flex; flex-direction: row; gap: 10px; }
+.input-filter { padding: 8px 12px; border-radius: 6px; border: 1px solid #444; background-color: #2d2d2d; color: white; font-family: inherit; }
+.btn-refresh { background-color: #2d2d2d; color: white; border: 1px solid #444; padding: 8px 15px; border-radius: 6px; cursor: pointer; }
+
+/* KARTU BOOKING ADMIN */
+.booking-list { display: flex; flex-direction: column; gap: 15px; margin-top: 15px; }
+.booking-card { background: #2d2d2d; border-radius: 12px; padding: 15px; border-left: 5px solid #444; }
+.booking-card.card-dp { border-left-color: #facc15; }
+.booking-card.card-lunas { border-left-color: #3b82f6; }
+.bc-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 10px; }
+.bc-lapangan { font-weight: bold; color: #e4e4e7; font-size: 1rem; }
+.bc-body { display: flex; justify-content: space-between; align-items: center; }
+.bc-info { display: flex; flex-direction: column; gap: 6px; }
+.bc-nama { font-size: 1.15rem; color: white; }
+.bc-waktu, .bc-harga { font-size: 0.9rem; color: #a1a1aa; }
+.bc-actions { display: flex; gap: 10px; align-items: center; }
+
+.lap-badge.dp { color: #facc15 !important; background: rgba(250, 204, 21, 0.15) !important; border: 1px solid rgba(250, 204, 21, 0.3) !important; padding: 4px 10px; border-radius: 6px; }
+.lap-badge.lunas { color: #3b82f6 !important; background: rgba(59, 130, 246, 0.15) !important; border: 1px solid rgba(59, 130, 246, 0.3) !important; padding: 4px 10px; border-radius: 6px; }
+
+.btn-lunas { background-color: #10b981; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+.btn-reschedule { background-color: #3b82f6; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+.btn-batal-pesanan { background-color: transparent; color: #ef4444; border: 1px solid #ef4444; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+
+/* PROFIL ADMIN */
+.admin-profile-pill { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); padding: 8px 18px; border-radius: 50px; display: inline-flex; align-items: center; color: #fff; }
+.admin-profile-pill strong { color: #4ade80; margin: 0 5px; font-weight: 800; }
+
+/* LAPORAN KEUANGAN */
+.laporan-wrapper { display: flex; flex-direction: column; gap: 20px; }
+.laporan-header-filter { display: flex; justify-content: space-between; align-items: center; background: #1e1e1e; padding: 20px; border-radius: 12px; }
+.filter-group { display: flex; gap: 10px; }
+.filter-group select, .filter-group input { background: #2d2d2d; color: white; border: 1px solid #444; padding: 10px; border-radius: 8px; outline: none; }
+.laporan-summary-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+.summary-box { padding: 20px; border-radius: 12px; background: #1e1e1e; border-left: 5px solid; }
+.summary-box span { color: #a1a1aa; font-size: 0.9rem; }
+.summary-box h3, .summary-box h2 { margin-top: 10px; color: white; }
+.summary-box.lunas { border-color: #3b82f6; }
+.summary-box.dp { border-color: #facc15; }
+.summary-box.bersih { background: #22c55e; border: none; color: #121212; }
+.laporan-log-container { background: #1e1e1e; padding: 20px; border-radius: 12px; }
+.laporan-list { margin-top: 15px; display: flex; flex-direction: column; gap: 10px; }
+.laporan-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #2d2d2d; border-radius: 8px; border-left: 4px solid #444; }
+.lap-info strong { color: #e4e4e7; font-size: 1.05rem; }
+.lap-info span { color: #a1a1aa; font-size: 0.9rem; display: block; margin-top: 5px; }
+.lap-nominal { display: flex; align-items: center; gap: 15px; font-weight: bold; }
+.text-blue { color: #3b82f6; } .text-yellow { color: #facc15; }
+
+/* LOGIN & REGISTER */
+.auth-container { display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #121212; padding: 20px; }
+.auth-box { background-color: #1e1e1e; padding: 40px; border-radius: 16px; width: 100%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid #333; }
+.auth-header { text-align: center; margin-bottom: 30px; }
+.auth-header h2 { color: #4ade80; font-size: 2rem; margin-bottom: 5px; }
+.auth-header p { color: #a1a1aa; }
+.auth-form .form-group { margin-bottom: 20px; }
+.auth-form label { display: block; color: #e4e4e7; margin-bottom: 8px; font-size: 0.95rem; font-weight: 500; }
+.auth-form input { width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid #444; background-color: #2d2d2d; color: white; font-size: 1rem; }
+.btn-auth { width: 100%; background-color: #4ade80; color: #121212; border: none; padding: 14px; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 10px; }
+.auth-link { color: #4ade80; text-decoration: none; font-weight: bold; }
+
+/* MODAL & ALERT GLOBAL (TETAP GELAP) */
+.modal-overlay, .custom-alert-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 10000; }
+.modal-box, .custom-alert-box { background-color: #1e1e1e; padding: 30px; border-radius: 12px; width: 90%; max-width: 450px; border: 1px solid #333; box-shadow: 0 10px 25px rgba(0,0,0,0.5); color: #fff; text-align: center; }
+.modal-box h2, .custom-alert-title { color: #fff; margin-bottom: 10px; }
+.modal-box p, .custom-alert-message { color: #a1a1aa; margin-bottom: 20px; font-size: 0.9rem; }
+.btn-alert-confirm, .btn-simpan { background-color: #4ade80; color: #121212; border: none; padding: 10px 15px; border-radius: 6px; font-weight: bold; cursor: pointer; }
+.btn-alert-cancel, .btn-batal { background-color: transparent; color: #a1a1aa; border: 1px solid #444; padding: 10px 15px; border-radius: 6px; cursor: pointer; }
+
+/* RESPONSIVE ADMIN MOBILE */
+@media (max-width: 768px) {
+  .admin-layout { flex-direction: column; height: auto; }
+  .mobile-header { display: flex; align-items: center; background-color: #1a1a1a; padding: 15px 20px; border-bottom: 2px solid #333; position: sticky; top: 0; z-index: 900; }
+  .mobile-header h2 { color: #4ade80; margin: 0; font-size: 1.3rem; margin-left: 15px;}
+  .admin-sidebar { position: fixed; top: 0; left: 0; height: 100vh; width: 260px; z-index: 1000; transform: translateX(-100%); transition: transform 0.3s; border-right: 2px solid #333; }
+  .admin-sidebar.open { transform: translateX(0); }
+  .sidebar-overlay { display: block; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.6); z-index: 999; }
+  .admin-main { padding: 15px; }
+  .admin-header { flex-direction: column; align-items: flex-start; gap: 15px; margin-bottom: 25px; }
+  .table-header { flex-direction: column; align-items: flex-start; gap: 15px; }
+  .table-controls { width: 100%; flex-direction: column-reverse; gap: 10px; }
+  .input-search { width: 100%; margin: 0; }
+  .table-actions { width: 100%; flex-direction: row; }
+}
+
+@media (min-width: 992px) {
+  .admin-cards { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 20px !important; }
+}
+
+/* =========================================================
+   PERBAIKAN TOTAL: DESAIN KARTU CUSTOMER (CLEAN LIGHT MODE)
+   ========================================================= */
+
+/* 1. Kotak Info Lapangan (Bersih & Elegan) */
+.info-lapangan {
+  background-color: #f8fafc !important; /* Abu-abu sangat terang (hampir putih) */
+  border: 1px solid #e2e8f0 !important; /* Garis tipis halus */
+}
+.info-lapangan p {
+  color: #475569 !important; /* Teks abu-abu gelap agar nyaman dibaca */
+  font-size: 0.9rem !important;
+  line-height: 1.6 !important;
+}
+.info-lapangan p strong {
+  color: #1e293b !important; /* Judul lebih gelap dan tebal */
+  font-weight: 700 !important;
+}
+
+/* 2. Kotak Durasi Main */
+.durasi-wrapper {
+  background-color: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-left: 4px solid #242c63 !important; /* Aksen garis Navy di kiri */
+}
+.durasi-wrapper p {
+  color: #1e293b !important;
+  font-weight: 700 !important;
+}
+
+/* 3. Tombol Slot Jam & Durasi */
+.btn-slot, .btn-durasi {
+  background-color: #ffffff !important;
+  color: #242c63 !important; /* Teks warna Navy */
+  border: 1px solid #cbd5e1 !important;
+}
+.btn-slot:hover, .btn-durasi:hover {
+  border-color: #242c63 !important;
+  background-color: #f1f5f9 !important;
+}
+.btn-slot.aktif, .btn-durasi.aktif {
+  background-color: #242c63 !important; /* Saat dipilih jadi Navy Solid */
+  color: #ffffff !important; /* Teks putih jelas */
+  border-color: #242c63 !important;
+}
+.btn-slot.penuh, .btn-durasi.penuh {
+  background-color: #f1f5f9 !important;
+  color: #94a3b8 !important; /* Teks abu-abu mati */
+  border-color: #e2e8f0 !important;
+}
+
+/* 4. Teks Waktu Main (Bersih tanpa background aneh) */
+.indikator-jam {
+  color: #475569 !important;
+}
+.indikator-jam strong {
+  color: #242c63 !important; /* Jamnya warna Navy */
+  background-color: transparent !important;
+  padding: 0 !important;
+}
+
+/* 5. Kotak Rincian Harga */
+.rincian-harga {
+  background-color: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+}
+.rincian-harga span { color: #64748b !important; }
+.rincian-harga strong { color: #1e293b !important; }
+
+/* 6. Kotak Metode Pembayaran */
+.opsi-bayar-wrapper {
+  background-color: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-left: 4px solid #a32129 !important; /* Aksen garis Merah di kiri */
+}
+.opsi-bayar-wrapper p {
+  color: #1e293b !important;
+  font-weight: 700 !important;
+}
+.opsi-label {
+  background-color: #ffffff !important;
+  color: #475569 !important;
+  border: 1px solid #cbd5e1 !important;
+}
+.opsi-label.aktif {
+  background-color: rgba(163, 33, 41, 0.05) !important; /* Background merah super tipis elegan */
+  color: #a32129 !important; /* Teks Merah */
+  border-color: #a32129 !important; /* Garis Merah */
+  font-weight: 700 !important;
+}
+
+/* 7. Label Tanggal di Pojok Kanan Atas (Override kodingan inline React) */
+.card-content div[style*="#2a2a2a"] {
+  background-color: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-left: 4px solid #242c63 !important; /* Aksen Navy */
+  color: #475569 !important;
+}
+.card-content div[style*="#2a2a2a"] strong {
+  color: #242c63 !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+/* =========================================================
+   TOMBOL WHATSAPP MELAYANG (FLOATING WA)
+   ========================================================= */
+.floating-wa-btn {
+  position: fixed !important;
+  bottom: 25px !important;
+  right: 25px !important;
+  z-index: 1060 !important;
+  background-color: #25d366 !important; /* Warna Hijau Khas WhatsApp */
+  color: #ffffff !important; /* Ikon Putih Bersih */
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  font-size: 2.2rem !important;
+  text-decoration: none !important;
+  box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4) !important;
+  transition: all 0.3s ease-in-out !important;
+  border: 2px solid #ffffff !important; /* Garis tepi putih estetik */
+}
+
+.floating-wa-btn:hover {
+  transform: translateY(-10px) scale(1.1) !important;
+  box-shadow: 0 10px 20px rgba(37, 211, 102, 0.6) !important;
+  color: #ffffff !important;
+}
+
+/* =========================================================
+   PERBAIKAN LABEL TANGGAL DI KARTU LAPANGAN (LIGHT MODE)
+   ========================================================= */
+
+/* Menghilangkan background gelap & garis hijau bawaan React */
+.card-content div[style*="#2a2a2a"],
+.card-content div[style*="#10b981"],
+.card-content div[style*="border-left"] {
+  background-color: #ffffff !important; /* Latar jadi putih bersih */
+  border: 1px solid #e2e8f0 !important; /* Garis tepi abu-abu sangat halus */
+  border-left: 4px solid #a32129 !important; /* Garis kiri pakai Merah Wijaya */
+  color: #121314 !important; /* Tulisan "Tanggal:" jadi abu-abu elegan */
+  border-radius: 8px !important;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.02) !important; /* Sedikit bayangan manis */
+}
+
+/* Mengubah warna teks tanggalnya (25 Mar 2026) */
+.card-content div[style*="#2a2a2a"] strong,
+.card-content div[style*="#10b981"] strong,
+.card-content div[style*="border-left"] strong {
+  color: #242c63 !important; /* Teks tanggalnya pakai warna Navy Wijaya */
+  font-weight: 800 !important;
+}
+
+/* =========================================================
+   PERBAIKAN FOOTER CUSTOMER (FULL LAYAR & TRANSPARAN)
+   ========================================================= */
+.customer-footer {
+  background-color: transparent !important; /* Basmi warna biru gelapnya */
+  border-top: 1px solid #cbd5e1 !important; /* Garis abu-abu tipis elegan */
+  padding: 30px 20px 90px 20px !important;
+  text-align: center !important;
+  margin-top: 50px !important;
+  
+  /* 🪄 JURUS SAKTI BIAR FOOTER JEBOL KANDANG & MENTOK KIRI KANAN 🪄 */
+  width: 100vw !important;
+  position: relative !important;
+  left: 50% !important;
+  right: 50% !important;
+  margin-left: -50vw !important;
+  margin-right: -50vw !important;
+  max-width: 100vw !important;
+}
+
+.customer-footer p {
+  color: #475569 !important; /* Teks abu-abu gelap elegan */
+  font-weight: 500 !important;
+  margin: 0 !important;
+}
+
+.footer-address {
+  color: #64748b !important; /* Alamat abu-abu kalem */
+  font-size: 0.85rem !important;
+  margin-top: 8px !important;
+  display: block !important; /* Turun ke baris baru */
+}
+
+/* Warna pin lokasi */
+.customer-footer i {
+  color: #a32129 !important; /* Merah aksen Wijaya */
+  margin-right: 6px;
+}
+
+/* =========================================================
+   PERBAIKAN HEADER CUSTOMER GLOBAL (KONSISTEN SEMUA HALAMAN)
+   ========================================================= */
+.customer-header {
+  /* 🪄 Jurus Paksa Header Jebol Kandang & Full Layar 🪄 */
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  margin-top: 0 !important;
+  margin-bottom: 30px !important;
+  
+  /* Posisi tetap nempel di atas */
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+  
+  /* Padding aman biar hamburger & logo GAK KEPOJOK */
+  padding: 15px 20px !important; 
+  box-sizing: border-box !important;
+  
+  display: flex !important;
+  align-items: center !important;
+  gap: 20px !important;
+}
+
+/* Biar di layar Desktop/Laptop isinya tetap sejajar rapi di tengah */
+@media screen and (min-width: 1200px) {
+  .customer-header {
+    padding-left: calc(50vw - 600px + 20px) !important;
+    padding-right: calc(50vw - 600px + 20px) !important;
+  }
+}
+
+/* Khusus layar HP biar jaraknya pas */
+@media screen and (max-width: 768px) {
+  .customer-header {
+    padding: 12px 20px !important; /* Jarak aman strip tiga di HP */
+  }
+  
+  /* Reset jarak atas konten biar nggak terlalu jauh/dekat */
+  .app-container, .info-content {
+    padding-top: 10px !important; 
+  }
+}
+
+/* =========================================================
+   PERBAIKAN HEADER MENTOK ATAS (MENGHAPUS JARAK KOSONG)
+   ========================================================= */
+   
+/* Menghapus bantalan atas bawaan di halaman Home dan Info */
+.app-container, 
+.info-content {
+  padding-top: 0 !important; 
+}
+
+/* Memastikan ruang untuk konten di bawah header tetap aman */
+.customer-header {
+  margin-top: 0 !important;
+  margin-bottom: 40px !important; /* Jarak aman ke judul "Selamat Datang..." */
+}
+
+/* =========================================================
+   PERBAIKAN FOOTER MENTOK BAWAH (MENGHILANGKAN GAP PUTIH)
+   ========================================================= */
+   
+/* 1. Hapus bantalan bawah dari pembungkus utama yang bikin sisa warna putih */
+.app-container, 
+.user-container,
+.info-content {
+  padding-bottom: 0 !important; 
+}
+
+/* 2. Pastikan footer benar-benar nempel bawah */
+.customer-footer {
+  margin-bottom: 0 !important;
+  /* Kita pindahkan ruang kosongnya ke DALAM footer 
+     biar warnanya ikut turun dan tombol WA nggak nabrak teks */
+  padding-bottom: 90px !important; 
+}
+
+/* =========================================================
+   PERBAIKAN JARAK BARIS JUDUL (BIAR GAK TERLALU RENGGANG)
+   ========================================================= */
+.header h1 {
+  line-height: 1.2 !important; /* Ini jurusnya biar jarak antar baris merapat */
+  margin-bottom: 15px !important;
+}
+
+/* Sedikit penyesuaian khusus layar HP biar makin cakep */
+@media screen and (max-width: 768px) {
+  .header h1 {
+    font-size: 1.8rem !important; /* Ukuran font disesuaikan sedikit buat HP */
+    line-height: 1.25 !important;
+    padding: 0 10px !important;
+  }
+}
+
+/* =========================================================
+   STYLE TOMBOL SAKLAR DARK MODE (KREATIF & HEMAT TEMPAT)
+   ========================================================= */
+.theme-toggle-btn {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #242c63; /* Warna ikon Navy saat siang */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.theme-toggle-btn:hover {
+  transform: rotate(15deg) scale(1.1);
+  background-color: #e2e8f0;
+}
+
+/* =========================================================
+   SISTEM TEMA GELAP (CLEAN DARK MODE)
+   ========================================================= */
+
+/* 1. Background & Warna Teks Utama (JURUS SAPU JAGAT FULL LAYAR) */
+body.dark-mode,
+body.dark-mode:has(.app-container), 
+body.dark-mode:has(.info-page-wrapper) {
+  background-color: #0f172a !important; /* Tembak langsung ke body biar full sampai ujung layar */
+  color: #f8fafc !important;
+}
+
+body.dark-mode .app-container,
+body.dark-mode .info-page-wrapper,
+body.dark-mode .info-content {
+  background-color: #0f172a !important; /* Pastikan semua bungkus luar dalam ikut gelap */
+  color: #f8fafc !important;
+}
+
+/* 2. Header & Tombol Dark Mode */
+body.dark-mode .customer-header {
+  background-color: rgba(30, 41, 59, 0.95) !important;
+  border-bottom: 1px solid #334155 !important;
+}
+body.dark-mode .hamburger-btn { color: #f8fafc !important; }
+body.dark-mode .theme-toggle-btn {
+  background: #1e293b;
+  border-color: #475569;
+  color: #fbbf24; /* Ikon matahari warna kuning/emas saat malam */
+}
+body.dark-mode .theme-toggle-btn:hover { background-color: #334155; }
+
+/* 3. Teks Judul */
+body.dark-mode .header h1 { color: #f8fafc !important; }
+body.dark-mode .header p { color: #94a3b8 !important; }
+
+/* 4. Background Kotak (Card) & Form */
+body.dark-mode .booking-form,
+body.dark-mode .lapangan-card,
+body.dark-mode .info-card {
+  background-color: #1e293b !important;
+  border: 1px solid #334155 !important;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4) !important;
+}
+body.dark-mode .booking-form h3,
+body.dark-mode .card-content h2,
+body.dark-mode .info-card h3,
+body.dark-mode .info-title {
+  color: #f8fafc !important;
+}
+
+/* 5. Input Text & Tanggal */
+body.dark-mode .booking-form input {
+  background-color: #0f172a !important;
+  border: 1px solid #475569 !important;
+  color: #f8fafc !important;
+  color-scheme: dark !important;
+}
+
+/* 6. Kotak Info Kecil (Durasi, Info Lapangan, Rincian Harga) */
+body.dark-mode .info-lapangan,
+body.dark-mode .durasi-wrapper,
+body.dark-mode .rincian-harga,
+body.dark-mode .opsi-bayar-wrapper,
+body.dark-mode .card-content div[style*="#f8fafc"] { /* Override label tanggal */
+  background-color: #0f172a !important; /* Kotak dalam lebih gelap biar berdimensi */
+  border: 1px solid #334155 !important;
+}
+
+/* 7. Warna Teks di Kotak Kecil */
+body.dark-mode .info-lapangan p,
+body.dark-mode .rincian-harga span,
+body.dark-mode .indikator-jam,
+body.dark-mode .card-content div[style*="#f8fafc"] {
+  color: #94a3b8 !important; /* Teks abu-abu terang */
+}
+body.dark-mode .info-lapangan p strong,
+body.dark-mode .rincian-harga strong,
+body.dark-mode .durasi-wrapper p,
+body.dark-mode .opsi-bayar-wrapper p {
+  color: #f8fafc !important; /* Judul putih */
+}
+
+/* 8. AKSEN IDENTITAS (Biru Langit & Merah Menyala) 
+   Kita ubah Navy/Merah jadi versi yg terang biar kebaca di background hitam */
+body.dark-mode .card-content div[style*="#f8fafc"] { border-left-color: #f87171 !important; }
+body.dark-mode .durasi-wrapper { border-left-color: #60a5fa !important; }
+body.dark-mode .opsi-bayar-wrapper { border-left-color: #f87171 !important; }
+
+/* Teks Aksen */
+body.dark-mode .harga { color: #f87171 !important; } /* Rp Merah terang */
+body.dark-mode .harga span { color: #94a3b8 !important; }
+body.dark-mode .card-content div[style*="#f8fafc"] strong,
+body.dark-mode .indikator-jam strong { color: #60a5fa !important; } /* Jam Biru terang */
+
+/* 9. Tombol Slot Jam & Durasi */
+body.dark-mode .btn-slot, 
+body.dark-mode .btn-durasi {
+  background-color: #1e293b !important;
+  color: #cbd5e1 !important;
+  border: 1px solid #475569 !important;
+}
+body.dark-mode .btn-slot:hover, 
+body.dark-mode .btn-durasi:hover {
+  background-color: #334155 !important;
+  border-color: #60a5fa !important;
+}
+body.dark-mode .btn-slot.aktif, 
+body.dark-mode .btn-durasi.aktif {
+  background-color: #60a5fa !important; /* Latar biru menyala saat dipilih */
+  color: #0f172a !important; /* Teks gelap biar kontras */
+  border-color: #60a5fa !important;
+}
+body.dark-mode .btn-slot.penuh, 
+body.dark-mode .btn-durasi.penuh {
+  background-color: #0f172a !important;
+  color: #475569 !important;
+  border-color: #1e293b !important;
+}
+
+/* 10. Label Opsi Pembayaran */
+body.dark-mode .opsi-label {
+  background-color: #1e293b !important;
+  border: 1px solid #475569 !important;
+}
+body.dark-mode .opsi-label span { color: #cbd5e1 !important; }
+body.dark-mode .opsi-label.aktif {
+  background-color: rgba(248, 113, 113, 0.1) !important;
+  border-color: #f87171 !important;
+}
+body.dark-mode .opsi-label.aktif span { color: #f87171 !important; }
+
+/* 11. Tombol Booking Utama */
+body.dark-mode .btn-pilih {
+  background-color: #f87171 !important; /* Merah menyala */
+  color: #0f172a !important; /* Teks gelap/hitam */
+}
+body.dark-mode .btn-pilih:hover {
+  background-color: #ef4444 !important;
+}
+
+/* 12. Footer & Sidebar Area */
+body.dark-mode .customer-footer { border-top-color: #334155 !important; }
+body.dark-mode .customer-footer p, 
+body.dark-mode .footer-address { color: #94a3b8 !important; }
+body.dark-mode .customer-footer i { color: #f87171 !important; }
+
+/* Menu Laci Kiri (Drawer) */
+body.dark-mode .gor-wijaya-customer-menu-drawer { background-color: #1e293b !important; }
+body.dark-mode .drawer-header { border-bottom-color: #334155 !important; }
+body.dark-mode .drawer-close-btn { color: #f8fafc !important; }
+body.dark-mode .customer-drawer-menu-item {
+  color: #cbd5e1 !important;
+  border-bottom-color: #0f172a !important;
+}
+body.dark-mode .customer-drawer-menu-item i { color: #f87171 !important; }
+body.dark-mode .customer-drawer-menu-item:hover {
+  background-color: #0f172a !important;
+  color: #f87171 !important;
+}
+
+/* Perbaikan warna teks "Pilih Jam Mulai:" di Dark Mode */
+body.dark-mode .slot-jam-wrapper p {
+  color: #f8fafc !important; /* Memaksa teks jadi putih terang */
+}
+
+/* =========================================================
+   TOMBOL LONCENG PENGUMUMAN (DRAGGABLE & SNAPPING)
+   ========================================================= */
+.bell-notification {
+  position: fixed !important;
+  /* 👇 JURUS BARU: Jangan set 'top' atau 'right' mutlak di sini 👇 */
+  /* Kita akan pakai inline style dari JS biar bisa dipindah */
+  
+  /* Setting Default Posisi saat pertama muncul (Taro di bawah header) */
+  bottom: 120px !important; /* Contoh: Default muncul di pojok kanan bawah, agak ke atas dikit */
+  right: 25px !important;
+  
+  top: initial !important; /* Paksa matikan settingan top jadul */
+  left: initial !important; /* Paksa matikan settingan left jadul */
+
+  z-index: 1060 !important; /* Lebih tinggi dari banner pengumuman */
+  cursor: grab !important; /* Tampilan kursor telapak tangan terbuka */
+  touch-action: none !important; /* WAJIB buat HP: Matikan scroll saat drag */
+  
+  transition: all 0.4s ease !important; /* Efek melompat halus saat snap ke pojok */
+}
+
+/* Biar gak ketabrak tombol WA melayang di HP */
+@media screen and (max-width: 768px) {
+  .bell-notification {
+    bottom: 95px !important; /* Di HP, default agak ke atas dikit biar di atas WA */
+    right: 15px !important;
+  }
+}
+
+/* =========================================================
+   TOMBOL LONCENG PENGUMUMAN (SUPER SMOOTH DRAGGABLE)
+   ========================================================= */
+.bell-notification {
+  position: fixed !important;
+  top: 90px !important;  /* Default posisi baru: Pas di bawah tombol Dark Mode */
+  right: 20px !important;
+  bottom: auto !important;
+  left: auto !important;
+  z-index: 1060 !important;
+  cursor: grab !important;
+  touch-action: none !important; /* Wajib di HP biar gak ikut ke-scroll */
+  transition: all 0.3s ease-out !important; /* Efek memantul saat dilepas */
+}
+
+.bell-notification.dragging {
+  transition: none !important; /* Matikan efek pantulan saat diseret biar lancar */
+  cursor: grabbing !important;
+}
+
+/* =========================================================
+   FIX POSISI LONCENG & BANNER (AGAR TIDAK KETUTUPAN)
+   ========================================================= */
+
+/* 1. Posisi Lonceng (Diam jadi tombol biasa) */
+.bell-notification {
+  position: fixed !important;
+  top: 90px !important; /* Pas di bawah tombol Dark Mode */
+  right: 20px !important;
+  bottom: auto !important;
+  left: auto !important;
+  z-index: 1060 !important;
+  cursor: pointer !important; /* Kursor standar untuk di-klik */
+  transition: transform 0.2s ease, background 0.2s ease !important;
+}
+
+/* =========================================================
+   FIX POSISI LONCENG & BANNER (BANNER DI KIRI LONCENG)
+   ========================================================= */
+
+/* 1. Posisi Lonceng (Diam di Pojok Kanan Atas) */
+.bell-notification {
+  position: fixed !important;
+  top: 90px !important; 
+  right: 20px !important;
+  bottom: auto !important;
+  left: auto !important;
+  z-index: 1060 !important;
+  cursor: pointer !important;
+  transition: transform 0.2s ease, background 0.2s ease !important;
+}
+
+/* 2. Posisi Banner Pengumuman (MUNCUL DI KIRI LONCENG) */
+.floating-announcement {
+  position: fixed !important;
+  top: 90px !important;    /* Tingginya sejajar persis dengan lonceng */
+  right: 85px !important;  /* Digeser ke kiri lonceng (20px + lebar lonceng) */
+  left: auto !important;   /* Reset left untuk Desktop */
+  bottom: auto !important; /* Reset bottom */
+  z-index: 9999 !important;
+  max-width: 350px !important;
+  animation: slideInRight 0.4s ease-out forwards !important;
+}
+
+/* 3. Penyesuaian Khusus HP */
+@media screen and (max-width: 768px) {
+  .bell-notification {
+    top: 75px !important; 
+    right: 15px !important;
+  }
+  .floating-announcement {
+    top: 75px !important;    /* Tinggi sejajar lonceng HP */
+    right: 70px !important;  /* Kiri lonceng HP */
+    left: 15px !important;   /* Mentok kiri biar lebar dan gampang dibaca */
+    max-width: none !important;
+  }
+} 
+
+/* =========================================================
+   FIX BADGE TANGGAL (CARA PALING AMPUH)
+   ========================================================= */
+body.dark-mode .badge-tanggal {
+  background-color: #0f172a !important;
+  border: 1px solid #334155 !important;
+  border-left: 4px solid #f87171 !important;
+}
+body.dark-mode .badge-tanggal span { color: #94a3b8 !important; }
+body.dark-mode .badge-tanggal strong { color: #f87171 !important; }
+
+/* Reset background bawaan banner biar warnanya bisa mulus 100% dari React */
+.floating-announcement {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* =========================================================
+   STYLE MODAL HISTORY PESANAN (CLEAN & RESPONSIVE)
+   ========================================================= */
+
+/* Overlay Background Gelap */
+.history-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+
+/* Kotak Modal Putih */
+.history-modal-box {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 450px;
+  border-radius: 15px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  max-height: 85vh;
+  animation: slideUp 0.3s ease-out;
+}
+
+/* Header Modal */
+.hm-header {
+  padding: 20px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.hm-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #242c63;
+}
+.hm-close {
+  background: none; border: none; font-size: 1.5rem; color: #94a3b8; cursor: pointer;
+}
+
+/* Isi Modal (Bisa di-scroll kalau banyak) */
+.hm-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Tampilan Jika Belum Ada Pesanan */
+.hm-kosong {
+  text-align: center; color: #94a3b8; padding: 40px 20px;
+}
+.hm-kosong i { font-size: 3rem; color: #cbd5e1; display: block; margin-bottom: 10px; }
+
+/* Kartu Riwayat Pesanan */
+.hm-card {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+.hm-card:last-child { margin-bottom: 0; }
+
+.hm-card-top {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px dashed #cbd5e1;
+}
+.hm-lapangan { font-weight: bold; color: #a32129; }
+.hm-status { font-size: 0.8rem; background-color: #10b981; color: white; padding: 4px 8px; border-radius: 5px; font-weight: bold; }
+
+.hm-detail p { margin: 0 0 5px 0; font-size: 0.9rem; color: #475569; }
+.hm-harga { 
+  margin-top: 10px; 
+  text-align: right; 
+  font-weight: bold; 
+  font-size: 1.1rem; 
+  color: #242c63; 
+}
+/* =========================================================
+   SUPPORT DARK MODE UNTUK HISTORY MODAL
+   ========================================================= */
+body.dark-mode .history-modal-box { background-color: #1e293b; border: 1px solid #475569; }
+body.dark-mode .hm-header { border-bottom-color: #334155; }
+body.dark-mode .hm-header h3 { color: #f8fafc; }
+body.dark-mode .hm-card { background-color: #0f172a; border-color: #334155; }
+body.dark-mode .hm-card-top { border-bottom-color: #475569; }
+body.dark-mode .hm-lapangan { color: #f87171; }
+body.dark-mode .hm-detail p { color: #cbd5e1; }
+body.dark-mode .hm-harga { color: #60a5fa; }
+
+/* =========================================================
+   STYLE TOMBOL HISTORY (KAPSUL PINTAR)
+   ========================================================= */
+
+/* Bentuk Kapsul untuk layar lebar (Laptop/Tablet) */
+.history-toggle-btn {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #242c63;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* Jarak antara ikon dan teks */
+  height: 40px;
+  padding: 0 16px; /* Padding kiri kanan biar bentuknya kapsul memanjang */
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.history-toggle-btn:hover {
+  background-color: #e2e8f0;
+  transform: translateY(-2px); /* Efek melayang dikit saat disentuh mouse */
+}
+
+/* Warna Kapsul saat Dark Mode aktif */
+body.dark-mode .history-toggle-btn {
+  background: #1e293b;
+  border-color: #475569;
+  color: #cbd5e1;
+}
+body.dark-mode .history-toggle-btn:hover {
+  background-color: #334155;
+}
+
+/* Trik Cerdas untuk Layar HP (Sembunyikan teks biar Header tetap Clean!) */
+@media screen and (max-width: 768px) {
+  .history-text {
+    display: none; /* Teks hilang di HP */
+  }
+  .history-toggle-btn {
+    padding: 0; /* Padding hilang */
+    width: 40px; /* Kembali jadi bulat 40x40px */
+  }
+}
+
+/* =========================================================
+   STYLE POPUP ALERT PREMIUM (LIGHT & DARK MODE)
+   ========================================================= */
+
+/* 1. Latar Belakang Overlay (Efek Kaca Buram / Blur) */
+.custom-alert-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(15, 23, 42, 0.6) !important;
+  backdrop-filter: blur(4px) !important; /* Efek blur modern ala iOS */
+  z-index: 100000 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s ease-out !important;
+}
+
+/* 2. Kotak Modal Popup (Light Mode) */
+.custom-alert-box {
+  background-color: #ffffff !important;
+  width: 90% !important;
+  max-width: 400px !important;
+  padding: 30px 20px !important;
+  border-radius: 20px !important;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15) !important;
+  border: 1px solid #e2e8f0 !important;
+  text-align: center !important;
+  animation: zoomIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; /* Efek memantul halus */
+}
+
+/* 3. Teks & Ikon Alert (Light Mode) */
+.custom-alert-icon {
+  font-size: 3.5rem !important;
+  margin-bottom: 15px !important;
+  line-height: 1 !important;
+}
+.custom-alert-title {
+  font-size: 1.3rem !important;
+  color: #1e293b !important;
+  margin: 0 0 10px 0 !important;
+  font-weight: 800 !important;
+}
+.custom-alert-message {
+  font-size: 0.95rem !important;
+  color: #475569 !important;
+  margin: 0 0 25px 0 !important;
+  line-height: 1.6 !important;
+}
+
+/* 4. Tombol Konfirmasi Alert */
+.btn-alert-confirm {
+  background-color: #a32129 !important;
+  color: white !important;
+  border: none !important;
+  padding: 12px 25px !important;
+  font-size: 1.05rem !important;
+  font-weight: bold !important;
+  border-radius: 10px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  width: 100% !important;
+}
+.btn-alert-confirm:hover {
+  background-color: #85181e !important;
+  transform: translateY(-2px) !important;
+}
+
+/* =========================================================
+   ADAPTASI DARK MODE UNTUK ALERT & BANNER LONCENG
+   ========================================================= */
+
+/* Dark Mode: Popup Alert */
+body.dark-mode .custom-alert-overlay {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+}
+body.dark-mode .custom-alert-box {
+  background-color: #1e293b !important; /* Slate Dark */
+  border-color: #334155 !important;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5) !important;
+}
+body.dark-mode .custom-alert-title { color: #f8fafc !important; }
+body.dark-mode .custom-alert-message { color: #cbd5e1 !important; }
+
+/* Dark Mode: Tombol Alert Merah Menyala */
+body.dark-mode .btn-alert-confirm {
+  background-color: #f87171 !important; /* Coral Terang */
+  color: #0f172a !important; /* Teks Hitam biar kontras */
+}
+body.dark-mode .btn-alert-confirm:hover { background-color: #ef4444 !important; }
+
+/* Dark Mode: Penyesuaian Banner Lonceng (Promo & Tutup) */
+body.dark-mode .floating-announcement > div {
+  box-shadow: 0 15px 35px rgba(0,0,0,0.7) !important; /* Shadow lebih tebal di mode gelap */
+  outline: 1px solid rgba(255,255,255,0.15) !important; /* Garis tepi tipis putih transparan */
+}
+
+/* Keyframes Animasi Memantul (Bila belum ada di CSS bosku) */
+@keyframes zoomIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* =========================================================
+   JURUS MENU DESKTOP DI HEADER (EKSKLUSIF)
+   ========================================================= */
+
+/* 1. Posisi Menu di Tengah/Samping Logo */
+.desktop-nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-left: 30px; /* Jarak menu dari logo */
+}
+
+/* 2. Gaya Tulisan Menu Desktop */
+.desktop-link {
+  color: #242c63;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 8px 0;
+  position: relative; /* Wajib untuk dudukan garis merah */
+  transition: color 0.3s ease;
+}
+
+/* 3. JURUS SAKTI: Garis Bawah Merah (Bisa Animasi Penuh/Kosong) */
+.desktop-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%; /* Default 0 biar ngumpet */
+  height: 3px;
+  background-color: #a32129; /* Merah Wijaya */
+  transition: width 0.3s ease; /* Efek memanjang halus */
+  border-radius: 2px;
+}
+
+/* Hover & Aktif: Garisnya memanjang 100% dan tulisan jadi merah */
+.desktop-link:hover,
+.desktop-link.active-menu {
+  color: #a32129;
+}
+.desktop-link:hover::after,
+.desktop-link.active-menu::after {
+  width: 100%;
+}
+
+/* =========================================================
+   PENGATURAN MODE GELAP (DARK MODE) UNTUK MENU DESKTOP
+   ========================================================= */
+body.dark-mode .desktop-link { color: #cbd5e1; }
+body.dark-mode .desktop-link::after { background-color: #f87171; }
+body.dark-mode .desktop-link:hover,
+body.dark-mode .desktop-link.active-menu { color: #f87171; }
+
+/* =========================================================
+   PENGATURAN SEMBUNYI-MUNCUL (HP VS DESKTOP)
+   ========================================================= */
+
+/* Aturan untuk Layar Besar (Laptop/Desktop) */
+@media screen and (min-width: 992px) {
+  .hide-on-desktop {
+    display: none !important; /* Bunuh tombol strip tiga di PC */
+  }
+}
+
+/* Aturan untuk Layar Kecil (HP/Tablet) */
+@media screen and (max-width: 991px) {
+  .hide-on-mobile {
+    display: none !important; /* Bunuh menu teks di HP */
+  }
+}
+
+/* =========================================================
+   JURUS STIKER TANGGAL (SEKALI KLIK LANGSUNG MUNCUL KALENDER)
+   ========================================================= */
+.tanggal-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tanggal-container input {
+  width: 200px;
+  cursor: pointer;
+}
+
+/* Stiker Tulisan Buatan Kita */
+.tanggal-placeholder {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  font-size: 0.95rem;
+  pointer-events: none; /* SANGAT PENTING: Biar kalau diklik, kliknya nembus ke input kalender di bawahnya */
+}
+
+/* Sembunyikan tulisan mm/dd/yyyy bawaan browser JIKA tanggalnya masih kosong */
+.tanggal-kosong::-webkit-datetime-edit {
+  color: transparent !important; 
+}
+.tanggal-kosong {
+  color: transparent !important; 
+}
+
+/* =========================================================
+   SESUAIKAN STIKER UNTUK DARK MODE
+   ========================================================= */
+body.dark-mode .tanggal-placeholder {
+  color: #94a3b8; /* Sesuaikan warna abu-abu di mode gelap */
+}
+
+/* =========================================================
+   INPUT TANGGAL MURNI (WARNANYA OTOMATIS IKUT TEMA)
+   ========================================================= */
+.date-input-native {
+  width: 200px;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1 !important;
+  background-color: #ffffff !important;
+  
+  /* JURUS UTAMA: Ini yang bikin teks mm/dd/yyyy berwarna gelap! */
+  color: #1e293b !important; 
+  
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  color-scheme: light !important;
+}
+
+/* IKON KALENDER MODE TERANG (HITAM) */
+.date-input-native::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%231f2937' class='bi bi-calendar' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z'%3E%3C/path%3E%3C/svg%3E");
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* =========================================================
+   DARK MODE UNTUK TANGGAL
+   ========================================================= */
+body.dark-mode .date-input-native {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+  
+  /* JURUS UTAMA: Ini yang bikin teks mm/dd/yyyy berwarna PUTIH! */
+  color: #f8fafc !important; 
+  
+  color-scheme: dark !important;
+}
+
+/* IKON KALENDER MODE GELAP (PUTIH) */
+body.dark-mode .date-input-native::-webkit-calendar-picker-indicator {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23f8fafc' class='bi bi-calendar' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z'%3E%3C/path%3E%3C/svg%3E");
+}
+
+/* =========================================================
+   STYLE LABEL DI ATAS INPUT (CLEAN & MODERN)
+   ========================================================= */
+.input-field-wrapper {
+  display: flex;
+  flex-direction: column; /* Biar label di atas, input di bawah */
+  align-items: flex-start; /* Rata kiri */
+  gap: 8px; /* Jarak antara label dan kotak input */
+}
+
+.input-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #242c63; /* Warna Navy kebanggaan Wijaya */
+  margin-left: 2px;
+  text-transform: uppercase; /* Biar kelihatan tegas */
+  letter-spacing: 0.5px;
+}
+
+/* Penyesuaian saat Mode Gelap (Dark Mode) */
+body.dark-mode .input-label {
+  color: #f8fafc !important; /* Label jadi putih di mode malam */
+}
+
+/* Biar di HP tetep rapi, kita buat input-group jadi fleksibel */
+@media screen and (max-width: 768px) {
+  .input-group {
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+  .input-field-wrapper, 
+  .input-field-wrapper input {
+    width: 100% !important; /* Di HP kotak inputnya penuhin layar */
+  }
+}

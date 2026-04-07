@@ -2,9 +2,12 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import UserPage from './pages/UserPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import AdminDashboard from './pages/AdminDashboard';
-// Pastikan komponen ProtectedRoute kamu ada atau sesuaikan
+import AdminDashboard from "./pages/AdminDashboard";
+import FasilitasPage from "./pages/FasilitasPage";
+import SyaratKetentuanPage from "./pages/SyaratKetentuanPage";
+import TentangKamiPage from "./pages/TentangKamiPage";
 import ProtectedRoute from './components/ProtectedRoute'; 
+import LayananGorPage from './pages/LayananGorPage';
 
 function App() {
   return (
@@ -27,6 +30,14 @@ function App() {
 
         {/* 4. Kalau ketik link ngawur, balikin ke halaman Customer */}
         <Route path="*" element={<Navigate to="/" replace />} />
+
+        {/* 5. Halaman Informasi untuk Customer */}
+        <Route path="/fasilitas" element={<FasilitasPage />} />
+        <Route path="/syarat-ketentuan" element={<SyaratKetentuanPage />} />
+        <Route path="/tentang-kami" element={<TentangKamiPage />} />
+
+        <Route path="/layanan" element={<LayananGorPage />} />
+
       </Routes>
     </BrowserRouter>
   );
